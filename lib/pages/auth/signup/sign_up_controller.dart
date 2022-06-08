@@ -30,20 +30,5 @@ class SignUpController extends GetxController {
     } on FirebaseAuthException catch (e) {
       EasyLoading.showError(e.message.toString());
     }
-
-    // if (password != confirmPassword) {}
-
-    // await auth
-    //     .createUserWithEmailAndPassword(email: email, password: password)
-    //     .then((value) async {
-    //   await reference.add(userData).then((value) {
-    //     Get.offAll(Home());
-    //     EasyLoading.showSuccess('Successful');
-    //   });
-    // }).catchError(
-    //   (onError) => EasyLoading.showError(onError.message.toString()),
-
-    //   // Get.snackbar("Error while creating account ", onError.message),
-    // );
   }
 }
