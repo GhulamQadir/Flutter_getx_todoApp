@@ -18,7 +18,9 @@ class LoginController extends GetxController {
 
       final UserCredential user = await auth.signInWithEmailAndPassword(
           email: email, password: password);
-      Get.to(Home());
+      emailController.clear();
+      passwordController.clear();
+      Get.off(Home());
       EasyLoading.showSuccess('Successful');
     } on FirebaseAuthException catch (e) {
       EasyLoading.showError(e.message.toString());
