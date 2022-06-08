@@ -29,6 +29,8 @@ class SignUpController extends GetxController {
       EasyLoading.showSuccess('Successful');
     } on FirebaseAuthException catch (e) {
       EasyLoading.showError(e.message.toString());
+    } catch (e) {
+      EasyLoading.showError(e.toString());
     }
   }
 }

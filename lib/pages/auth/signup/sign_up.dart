@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_getx_todo/pages/auth/login/login.dart';
 import 'package:flutter_getx_todo/pages/auth/signup/sign_up_controller.dart';
 import 'package:flutter_getx_todo/pages/home/home.dart';
 import 'package:get/get.dart';
@@ -206,6 +207,11 @@ class _SignUpState extends State<SignUp> {
                             RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30)),
                           )))),
+              ElevatedButton(
+                  onPressed: () {
+                    Get.to(LoginScreen());
+                  },
+                  child: Text("go to login"))
             ],
           ),
         ),
