@@ -38,9 +38,6 @@ await    addTaskController.addTask(addTaskController.titleController.text, addTa
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: ColorScheme.light(
-              // primary: , // header background color
-              // onPrimary: headerTextColor, // header text color
-              // onSurface: bodyTextColor, // body text color
             ),
             textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(
