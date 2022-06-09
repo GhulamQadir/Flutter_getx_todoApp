@@ -13,7 +13,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-    bool isChecked = false;
+  bool value = false;
 
   logOut() async {
     final FirebaseAuth auth = FirebaseAuth.instance;
@@ -87,14 +87,14 @@ class _HomeState extends State<Home> {
           Flexible(
             child: StreamBuilder<QuerySnapshot>(
               stream: cartStream,
-              builder:
-                  (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasError) {
                   return Text('Something went wrong');
                 }
-          
+
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Text("waiting");
+                  return CircularProgressIndicator();
                 }
                 if (snapshot.data == null) {
                   return CircularProgressIndicator();
@@ -103,32 +103,68 @@ class _HomeState extends State<Home> {
                   return Center(
                     child: Container(
                       child: Text(
-                        "No items added yet",
-                        style:
-                            TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+                        "No tasks added yet",
+                        style: TextStyle(
+                            fontSize: 25, fontWeight: FontWeight.w500),
                       ),
                     ),
                   );
                 }
-          
+
                 return ListView(
-                  children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                  children:
+                      snapshot.data!.docs.map((DocumentSnapshot document) {
                     Map<String, dynamic> data =
                         document.data()! as Map<String, dynamic>;
                     String id = document.id;
                     data["id"] = id;
+
+                    var title = data["title"];
+                    var date = data["date"];
+                    var checkBoxVal = data["is Checked"] == true;
+
                     return ListTile(
-                      title: Text(data['title']),
+                      title: Text(data['title'],
+                          style: TextStyle(
+                              decoration: data['is Checked'] == true
+                                  ? TextDecoration.lineThrough
+                                  : TextDecoration.none)),
                       subtitle: Text(data['date']),
                       leading: Checkbox(
-      onChanged: (bool value) {
-        widget.isChecked = value;
-        setState(() {
-          widget.isChecked = value;
-        });
-      },
-      value: widget.isChecked,
-    );,
+                          value: data['is Checked'],
+                          onChanged: (value) {
+                            setState(() {
+                              this.value = value!;
+                            });
+
+                            db
+                                .collection("users")
+                                .doc(firebaseUser!.uid)
+                                .collection("myTodos")
+                                .doc(id)
+                                .update({"is Checked": value});
+                            print(value);
+                          }),
+                      trailing: Wrap(
+                        children: [
+                          IconButton(
+                              onPressed: checkBoxVal
+                                  ? null
+                                  : () {
+                                      print("function is running");
+                                    },
+                              icon: Icon(
+                                Icons.edit,
+                                color: checkBoxVal ? Colors.grey : Colors.black,
+                              )),
+                          IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.delete,
+                                color: Colors.black,
+                              ))
+                        ],
+                      ),
                     );
                   }).toList(),
                 );
