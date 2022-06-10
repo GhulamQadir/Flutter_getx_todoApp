@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_getx_todo/pages/add_task/add_task_form.dart';
 import 'package:flutter_getx_todo/pages/auth/signup/sign_up.dart';
+import 'package:flutter_getx_todo/pages/edit_task/edit_task_form.dart';
 import 'package:get/get.dart';
 
 class Home extends StatefulWidget {
@@ -123,6 +124,30 @@ class _HomeState extends State<Home> {
                     var date = data["date"];
                     var checkBoxVal = data["is Checked"] == true;
 
+                    editTask() {
+                      // Get.to(EditTaskForm(data: data));
+                      showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(20))),
+                          builder: (BuildContext context) {
+                            return Container(
+                              height: MediaQuery.of(context).size.height * 0.70,
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    EditTaskForm(
+                                      data: data,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
+                          });
+                    }
+
                     return ListTile(
                       title: Text(data['title'],
                           style: TextStyle(
@@ -148,15 +173,12 @@ class _HomeState extends State<Home> {
                       trailing: Wrap(
                         children: [
                           IconButton(
-                              onPressed: checkBoxVal
-                                  ? null
-                                  : () {
-                                      print("function is running");
-                                    },
-                              icon: Icon(
-                                Icons.edit,
-                                color: checkBoxVal ? Colors.grey : Colors.black,
-                              )),
+                            onPressed: checkBoxVal ? null : editTask,
+                            icon: Icon(
+                              Icons.edit,
+                              color: checkBoxVal ? Colors.grey : Colors.black,
+                            ),
+                          ),
                           IconButton(
                               onPressed: () {},
                               icon: Icon(

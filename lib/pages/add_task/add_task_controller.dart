@@ -8,10 +8,14 @@ class AddTaskController extends GetxController {
   FirebaseFirestore db = FirebaseFirestore.instance;
   final TextEditingController titleController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
-
+  bool checkBoxVal = false;
   addTask(String title, String date) {
     try {
-      Map<String, dynamic> addTodo = {"title": title, "date": date};
+      Map<String, dynamic> addTodo = {
+        "title": title,
+        "date": date,
+        "is Checked": checkBoxVal
+      };
       db
           .collection("users")
           .doc(auth.currentUser!.uid)
