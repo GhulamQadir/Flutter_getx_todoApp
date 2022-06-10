@@ -7,6 +7,7 @@ import 'package:flutter_getx_todo/pages/add_task/add_task_form.dart';
 import 'package:flutter_getx_todo/pages/auth/signup/sign_up.dart';
 import 'package:flutter_getx_todo/pages/edit_task/edit_task_form.dart';
 import 'package:flutter_getx_todo/pages/home/home_controller.dart';
+import 'package:flutter_getx_todo/pages/profile/user_profile.dart';
 import 'package:get/get.dart';
 
 class Home extends StatefulWidget {
@@ -40,6 +41,13 @@ class _HomeState extends State<Home> {
         title: Text("Home screen"),
         backgroundColor: Color.fromARGB(255, 135, 188, 212),
         actions: [
+          Padding(
+              padding: const EdgeInsets.only(top: 5),
+              child: IconButton(
+                  onPressed: () {
+                    Get.to(UserProfileScreen());
+                  },
+                  icon: Icon(Icons.person))),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: IconButton(

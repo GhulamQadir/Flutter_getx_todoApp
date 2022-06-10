@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_getx_todo/pages/auth/login/login_form.dart';
+import 'package:flutter_getx_todo/pages/auth/signup/sign_up.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -37,7 +38,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              loginForm()
+              LoginForm(),
+              ElevatedButton(
+                  onPressed: () {
+                    Get.to(SignUp());
+                  },
+                  child: Text("go to signup"))
             ]))));
   }
 }
