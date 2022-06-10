@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_getx_todo/pages/add_task/add_task_form.dart';
 import 'package:flutter_getx_todo/pages/auth/signup/sign_up.dart';
 import 'package:flutter_getx_todo/pages/edit_task/edit_task_form.dart';
+import 'package:flutter_getx_todo/pages/home/home_controller.dart';
 import 'package:get/get.dart';
 
 class Home extends StatefulWidget {
@@ -14,16 +15,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final homeController = Get.put(HomeController());
+
   bool value = false;
-
-  logOut() async {
-    final FirebaseAuth auth = FirebaseAuth.instance;
-
-    await auth.signOut();
-    setState(() {});
-    print("user diconnected");
-    Get.off(SignUp());
-  }
 
   final firebaseUser = FirebaseAuth.instance.currentUser;
   FirebaseFirestore db = FirebaseFirestore.instance;
@@ -48,7 +42,8 @@ class _HomeState extends State<Home> {
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Icon(Icons.logout),
+            child: IconButton(
+                onPressed: homeController.logOut, icon: Icon(Icons.logout)),
           )
         ],
       ),
@@ -125,7 +120,6 @@ class _HomeState extends State<Home> {
                     var checkBoxVal = data["is Checked"] == true;
 
                     editTask() {
-                      // Get.to(EditTaskForm(data: data));
                       showModalBottomSheet(
                           context: context,
                           isScrollControlled: true,
@@ -146,6 +140,15 @@ class _HomeState extends State<Home> {
                               ),
                             );
                           });
+                    }
+
+                    var todos = db
+                        .collection("users")
+                        .doc(firebaseUser!.uid)
+                        .collection("myTodos");
+
+                    deleteTask() {
+                      homeController.deleteTodo(id);
                     }
 
                     return ListTile(
@@ -180,7 +183,7 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                           IconButton(
-                              onPressed: () {},
+                              onPressed: deleteTask,
                               icon: Icon(
                                 Icons.delete,
                                 color: Colors.black,
@@ -193,6 +196,9 @@ class _HomeState extends State<Home> {
               },
             ),
           ),
+          ElevatedButton(
+              onPressed: homeController.deleteAllTodos,
+              child: Text("Delete all"))
         ],
       ),
     );
