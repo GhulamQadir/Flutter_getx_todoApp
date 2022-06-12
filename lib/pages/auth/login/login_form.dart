@@ -27,7 +27,7 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.66,
+      height: MediaQuery.of(context).size.height * 0.73,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
           color: Colors.white,
@@ -38,66 +38,75 @@ class _LoginFormState extends State<LoginForm> {
             key: _formKey,
             child: Column(children: [
               Padding(
-                padding: const EdgeInsets.only(top: 15, left: 20, right: 20),
-                child: SizedBox(
-                  height: 60,
-                  width: MediaQuery.of(context).size.width * 0.85,
-                  child: TextFormField(
-                    controller: loginController.emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (value) {
-                      if (value!.isNotEmpty && value.length > 7) {
-                        return null;
-                      } else if (value.length < 7 && value.isNotEmpty) {
-                        return "Your email address is too short";
-                      } else {
-                        return "Please enter your email address";
-                      }
-                    },
-                    decoration: InputDecoration(
-                      labelText: "Email",
-                      prefixIcon: Icon(
-                        Icons.email,
-                        color: Colors.purple[500],
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                        borderSide: BorderSide.none,
-                      ),
-                      filled: true,
+                padding: const EdgeInsets.only(top: 9),
+                child: Text(
+                  "Login",
+                  style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.height * 0.04,
+                      fontWeight: FontWeight.w800),
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.03,
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.07,
+                width: MediaQuery.of(context).size.width * 0.80,
+                child: TextFormField(
+                  controller: loginController.emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value!.isNotEmpty && value.length > 7) {
+                      return null;
+                    } else if (value.length < 7 && value.isNotEmpty) {
+                      return "Your email address is too short";
+                    } else {
+                      return "Please enter your email address";
+                    }
+                  },
+                  decoration: InputDecoration(
+                    labelText: "Email",
+                    prefixIcon: Icon(
+                      Icons.email,
+                      color: Color(0xff092f82),
                     ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
+                    ),
+                    filled: true,
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 15, left: 20, right: 20),
-                child: SizedBox(
-                  height: 60,
-                  width: MediaQuery.of(context).size.width * 0.85,
-                  child: TextFormField(
-                    controller: loginController.passwordController,
-                    obscureText: true,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Please enter your password";
-                      } else if (value.length < 6) {
-                        return "Your password is too short";
-                      } else {
-                        return null;
-                      }
-                    },
-                    decoration: InputDecoration(
-                      labelText: "Password",
-                      prefixIcon: Icon(
-                        Icons.lock,
-                        color: Colors.purple[500],
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                        borderSide: BorderSide.none,
-                      ),
-                      filled: true,
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.04,
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.07,
+                width: MediaQuery.of(context).size.width * 0.80,
+                child: TextFormField(
+                  controller: loginController.passwordController,
+                  obscureText: true,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Please enter your password";
+                    } else if (value.length < 6) {
+                      return "Your password is too short";
+                    } else {
+                      return null;
+                    }
+                  },
+                  decoration: InputDecoration(
+                    labelText: "Password",
+                    prefixIcon: Icon(
+                      Icons.lock,
+                      color: Color(0xff092f82),
                     ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
+                    ),
+                    filled: true,
                   ),
                 ),
               ),
@@ -118,7 +127,7 @@ class _LoginFormState extends State<LoginForm> {
                         ),
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
-                                Colors.purple[500]!),
+                                Color(0xff092f82)),
                             shape: MaterialStateProperty.all<
                                 RoundedRectangleBorder>(
                               RoundedRectangleBorder(
