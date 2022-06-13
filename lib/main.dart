@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_getx_todo/pages/auth/login/login.dart';
 import 'package:flutter_getx_todo/pages/auth/signup/sign_up.dart';
 import 'package:flutter_getx_todo/pages/home/home.dart';
 import 'package:get/get.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: FirebaseAuth.instance.currentUser == null ? SignUp() : Home(),
+      home: FirebaseAuth.instance.currentUser == null ? LoginScreen() : Home(),
       builder: EasyLoading.init(),
     );
   }

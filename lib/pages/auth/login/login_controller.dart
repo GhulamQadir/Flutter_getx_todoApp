@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_getx_todo/pages/auth/signup/sign_up.dart';
 import 'package:flutter_getx_todo/pages/home/home.dart';
 import 'package:get/get.dart';
 
@@ -71,5 +72,9 @@ class LoginController extends GetxController {
     } catch (e) {
       EasyLoading.showError(e.toString());
     }
+  }
+
+  goToSignUp() {
+    Get.to(SignUp());
   }
 }

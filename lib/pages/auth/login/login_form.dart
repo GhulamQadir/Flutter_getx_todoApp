@@ -1,13 +1,9 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_getx_todo/pages/auth/login/login_controller.dart';
 import 'package:get/get.dart';
-
-final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-final loginController = Get.put(LoginController());
 
 class LoginForm extends StatefulWidget {
   @override
@@ -15,6 +11,9 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  final loginController = Get.put(LoginController());
   loginUser() {
     if (!_formKey.currentState!.validate()) {
       return;
@@ -22,6 +21,13 @@ class _LoginFormState extends State<LoginForm> {
     EasyLoading.show(status: 'loading...');
     loginController.login(loginController.emailController.text,
         loginController.passwordController.text);
+  }
+
+  bool _isHidden = true;
+  togglePasswordView() {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
   }
 
   @override
@@ -86,7 +92,7 @@ class _LoginFormState extends State<LoginForm> {
                 width: MediaQuery.of(context).size.width * 0.80,
                 child: TextFormField(
                   controller: loginController.passwordController,
-                  obscureText: true,
+                  obscureText: _isHidden,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Please enter your password";
@@ -102,6 +108,13 @@ class _LoginFormState extends State<LoginForm> {
                       Icons.lock,
                       color: Color(0xff092f82),
                     ),
+                    suffixIcon: GestureDetector(
+                      onTap: togglePasswordView,
+                      child: Icon(
+                        _isHidden ? Icons.visibility : Icons.visibility_off,
+                        color: Color(0xff092f82),
+                      ),
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: BorderSide.none,
@@ -113,39 +126,79 @@ class _LoginFormState extends State<LoginForm> {
               SizedBox(
                 height: 20,
               ),
-              Center(
-                child: Container(
-                    width: 150,
-                    child: TextButton(
-                        onPressed: loginUser,
-                        child: Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Text(
-                            "Login",
-                            style: TextStyle(fontSize: 18, color: Colors.white),
-                          ),
+              Container(
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  child: TextButton(
+                      onPressed: loginUser,
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Text(
+                          "Login",
+                          style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                                Color(0xff092f82)),
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30)),
-                            )))),
-              ),
+                      ),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Color(0xff092f82)),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30)),
+                          )))),
               Padding(
-                padding: const EdgeInsets.only(top: 12),
-                child: Text("Or"),
+                padding: const EdgeInsets.only(top: 14, bottom: 14),
+                child: Text(
+                  "forgot password?",
+                  style: TextStyle(
+                      color: Color(0xff092f82), fontWeight: FontWeight.w500),
+                ),
               ),
-              SizedBox(height: 15),
+              Container(
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  child: TextButton(
+                      onPressed: loginController.goToSignUp,
+                      child: Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: Text(
+                          "Sign up",
+                          style: TextStyle(fontSize: 18, color: Colors.black),
+                        ),
+                      ),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Color(0xffF3F3F3)),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30)),
+                          )))),
+              Padding(
+                padding: const EdgeInsets.only(top: 13, bottom: 13),
+                child: Text(
+                  "Or",
+                  style: TextStyle(
+                      color: Color(0xff092f82), fontWeight: FontWeight.w500),
+                ),
+              ),
               GestureDetector(
                 onTap: loginController.loginWithGoogle,
-                child: CircleAvatar(
-                  radius: 23,
-                  backgroundColor: Colors.transparent,
-                  child:
-                      Image.network("https://freesvg.org/img/1534129544.png"),
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: Color(0xff092f82),
+                      width: 2,
+                    ),
+                  ),
+                  child: CircleAvatar(
+                    radius: 25,
+                    backgroundColor: Colors.transparent,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image.network(
+                          "https://freesvg.org/img/1534129544.png"),
+                    ),
+                  ),
                 ),
               )
             ])),
