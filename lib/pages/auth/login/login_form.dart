@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_getx_todo/pages/auth/forgot_password/forgot_password_form.dart';
 import 'package:flutter_getx_todo/pages/auth/login/login_controller.dart';
 import 'package:get/get.dart';
 
@@ -28,6 +29,25 @@ class _LoginFormState extends State<LoginForm> {
     setState(() {
       _isHidden = !_isHidden;
     });
+  }
+
+  forgotPassword() {
+    Get.to(ForgotPassword());
+    // showModalBottomSheet(
+    //     context: context,
+    //     isScrollControlled: true,
+    //     shape: RoundedRectangleBorder(
+    //         borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+    //     builder: (context) {
+    //       return Container(
+    //         height: MediaQuery.of(context).size.height * 0.45,
+    //         child: SingleChildScrollView(
+    //           child: Column(
+    //             children: [ForgotPassword()],
+    //           ),
+    //         ),
+    //       );
+    //     });
   }
 
   @override
@@ -124,7 +144,7 @@ class _LoginFormState extends State<LoginForm> {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: MediaQuery.of(context).size.height * 0.04,
               ),
               Container(
                   width: MediaQuery.of(context).size.width * 0.6,
@@ -147,10 +167,13 @@ class _LoginFormState extends State<LoginForm> {
                           )))),
               Padding(
                 padding: const EdgeInsets.only(top: 14, bottom: 14),
-                child: Text(
-                  "forgot password?",
-                  style: TextStyle(
-                      color: Color(0xff092f82), fontWeight: FontWeight.w500),
+                child: GestureDetector(
+                  onTap: forgotPassword,
+                  child: Text(
+                    "forgot password?",
+                    style: TextStyle(
+                        color: Color(0xff092f82), fontWeight: FontWeight.w500),
+                  ),
                 ),
               ),
               Container(

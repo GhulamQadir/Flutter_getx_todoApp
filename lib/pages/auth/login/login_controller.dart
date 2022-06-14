@@ -67,6 +67,7 @@ class LoginController extends GetxController {
           });
         }
       });
+      EasyLoading.showSuccess('Successful');
 
       Get.off(Home());
     } catch (e) {
