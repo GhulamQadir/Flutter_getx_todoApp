@@ -16,12 +16,9 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // appBar: AppBar(
-        //   title: Text("Login screen"),
-        // ),
+       
         body: SafeArea(
             child: Stack(
-                // crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
           Container(
             height: MediaQuery.of(context).size.height,
@@ -55,17 +52,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               )),
-          // SizedBox(
-          //   height: 20,
-          // ),
           Positioned(
               top: MediaQuery.of(context).size.height * 0.23,
               child: LoginForm()),
-          // ElevatedButton(
-          //     onPressed: () {
-          //       Get.to(SignUp());
-          //     },
-          //     child: Text("go to signup"))
-        ])));
+          ])));
   }
 }
