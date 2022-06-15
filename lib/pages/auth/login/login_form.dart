@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_getx_todo/pages/auth/forgot_password/forgot_password_form.dart';
+import 'package:flutter_getx_todo/pages/auth/forgot_password/forgot_password.dart';
 import 'package:flutter_getx_todo/pages/auth/login/login_controller.dart';
 import 'package:get/get.dart';
 

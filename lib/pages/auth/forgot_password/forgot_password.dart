@@ -1,18 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter_getx_todo/pages/auth/login/login_form.dart';
-import 'package:flutter_getx_todo/pages/auth/signup/sign_up.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:get/get.dart';
+import 'package:flutter_getx_todo/pages/auth/forgot_password/forgot_password_form.dart';
 
-class LoginScreen extends StatefulWidget {
+class ForgotPassword extends StatefulWidget {
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<ForgotPassword> createState() => _ForgotPasswordState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _ForgotPasswordState extends State<ForgotPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
         color: Color(0xff092f82),
       ),
       Positioned(
-          top: MediaQuery.of(context).size.height * 0.1,
+          top: MediaQuery.of(context).size.height * 0.07,
           left: MediaQuery.of(context).size.width * 0.25,
           right: MediaQuery.of(context).size.width * 0.25,
           child: Row(
@@ -51,7 +47,8 @@ class _LoginScreenState extends State<LoginScreen> {
             ],
           )),
       Positioned(
-          top: MediaQuery.of(context).size.height * 0.23, child: LoginForm()),
+          top: MediaQuery.of(context).size.height * 0.17,
+          child: ForgotPasswordForm()),
     ])));
   }
 }
