@@ -67,12 +67,12 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
               ),
               Container(
                 child: Text(
-                  "Enter your email below to\n reset password",
+                  "Enter your email below to reset password",
                   style: TextStyle(fontSize: 14, color: Colors.grey[800]),
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.03,
+                height: MediaQuery.of(context).size.height * 0.02,
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.07,
@@ -139,7 +139,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
                           child: Text(
-                        "Check spam or junk if you didn't\n receive an email",
+                        "Check spam/junk if you didn't\n receive an email",
                         overflow: TextOverflow.ellipsis,
                         // maxLines: 1,
                       )),

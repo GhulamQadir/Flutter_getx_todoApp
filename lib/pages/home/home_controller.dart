@@ -49,4 +49,21 @@ class HomeController extends GetxController {
     print("user diconnected");
     Get.off(LoginScreen());
   }
+
+  String? firstName;
+
+  currentUserProfile() async {
+    final firebaseUser = FirebaseAuth.instance.currentUser;
+    if (firebaseUser != null) {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(firebaseUser.uid)
+          .get()
+          .then((ds) {
+        firstName = ds.data()!['first name'];
+      }).catchError((e) {
+        print(e);
+      });
+    }
+  }
 }
