@@ -15,6 +15,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final TextEditingController searchController = TextEditingController();
+  String searchTitle = "";
+
   final homeController = Get.put(HomeController());
 
   bool value = false;
@@ -106,6 +109,41 @@ class _HomeState extends State<Home> {
       backgroundColor: Colors.lightBlue[600],
       body: Column(
         children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.07,
+            width: MediaQuery.of(context).size.width * 0.80,
+            child: TextFormField(
+              onChanged: (val) {
+                setState(() {
+                  searchTitle = val;
+                });
+              },
+              controller: searchController,
+              keyboardType: TextInputType.emailAddress,
+              validator: (value) {
+                if (value!.isNotEmpty && value.length > 7) {
+                  return null;
+                } else if (value.length < 7 && value.isNotEmpty) {
+                  return "Your email address is too short";
+                } else {
+                  return "Please enter your email address";
+                }
+              },
+              decoration: InputDecoration(
+                labelText: "Search Task",
+                prefixIcon: Icon(
+                  Icons.email,
+                  color: Color(0xff092f82),
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide.none,
+                ),
+                filled: true,
+              ),
+            ),
+          ),
+
           FutureBuilder(
               future: homeController.currentUserProfile(),
               builder: (context, snapshot) {
@@ -125,7 +163,16 @@ class _HomeState extends State<Home> {
               }),
           Flexible(
             child: StreamBuilder<QuerySnapshot>(
-              stream: cartStream,
+              stream: (searchTitle == null || searchTitle.trim() == '')
+                  ? cartStream
+                  : db
+                      .collection("users")
+                      .doc(firebaseUser!.uid)
+                      .collection("myTodos")
+                      .where("title", isGreaterThanOrEqualTo: searchTitle)
+                      .where("title",
+                          isLessThanOrEqualTo: "${searchTitle}\uf7ff")
+                      .snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasError) {
