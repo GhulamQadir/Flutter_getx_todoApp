@@ -13,6 +13,7 @@ class LoginController extends GetxController {
   FirebaseFirestore db = FirebaseFirestore.instance;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  // bool loading = false.obs;
 
   login(String email, String password) async {
     try {
@@ -23,6 +24,7 @@ class LoginController extends GetxController {
       emailController.clear();
       passwordController.clear();
       Get.off(Home());
+
       EasyLoading.showSuccess('Successful');
     } on FirebaseAuthException catch (e) {
       EasyLoading.showError(e.message.toString());
@@ -79,3 +81,8 @@ class LoginController extends GetxController {
     Get.to(SignUp());
   }
 }
+
+
+ class LoadingVariable extends GetxController{
+    
+  }

@@ -58,19 +58,41 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // title: Text("Home screen"),
+        title: Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.07,
+            width: MediaQuery.of(context).size.width * 0.7,
+            child: TextFormField(
+              onChanged: (val) {
+                setState(() {
+                  searchTitle = val;
+                });
+              },
+              style: TextStyle(color: Colors.white),
+              controller: searchController,
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(
+                labelText: "Search Task",
+                labelStyle: TextStyle(color: Colors.white),
+                suffixIcon: Icon(Icons.search, color: Colors.white),
+                border: InputBorder.none,
+              ),
+            ),
+          ),
+        ),
         elevation: 0,
         backgroundColor: Colors.lightBlue[600],
         actions: [
+          // Padding(
+          //     padding: const EdgeInsets.only(top: 5),
+          //     child: IconButton(
+          //         onPressed: () {
+          //           Get.to(UserProfileScreen());
+          //         },
+          //         icon: Icon(Icons.person))),
           Padding(
-              padding: const EdgeInsets.only(top: 5),
-              child: IconButton(
-                  onPressed: () {
-                    Get.to(UserProfileScreen());
-                  },
-                  icon: Icon(Icons.person))),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(top: 10, right: 5),
             child: IconButton(
                 onPressed: homeController.logOut, icon: Icon(Icons.logout)),
           )
@@ -105,44 +127,34 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
-      drawer: Drawer(),
+      drawer: Padding(
+        padding: const EdgeInsets.only(top: 10),
+        child: Drawer(),
+      ),
       backgroundColor: Colors.lightBlue[600],
       body: Column(
         children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.07,
-            width: MediaQuery.of(context).size.width * 0.80,
-            child: TextFormField(
-              onChanged: (val) {
-                setState(() {
-                  searchTitle = val;
-                });
-              },
-              controller: searchController,
-              keyboardType: TextInputType.emailAddress,
-              validator: (value) {
-                if (value!.isNotEmpty && value.length > 7) {
-                  return null;
-                } else if (value.length < 7 && value.isNotEmpty) {
-                  return "Your email address is too short";
-                } else {
-                  return "Please enter your email address";
-                }
-              },
-              decoration: InputDecoration(
-                labelText: "Search Task",
-                prefixIcon: Icon(
-                  Icons.email,
-                  color: Color(0xff092f82),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide.none,
-                ),
-                filled: true,
-              ),
-            ),
-          ),
+          // SizedBox(
+          //   height: MediaQuery.of(context).size.height * 0.07,
+          //   width: MediaQuery.of(context).size.width * 0.7,
+          //   child: TextFormField(
+          //     onChanged: (val) {
+          //       setState(() {
+          //         searchTitle = val;
+          //       });
+          //     },
+          //     controller: searchController,
+          //     keyboardType: TextInputType.emailAddress,
+          //     decoration: InputDecoration(
+          //       labelText: "Search Task",
+          //       suffixIcon: Icon(
+          //         Icons.email,
+          //         color: Color(0xff092f82),
+          //       ),
+          //       border: InputBorder.none,
+          //     ),
+          //   ),
+          // ),
 
           FutureBuilder(
               future: homeController.currentUserProfile(),
@@ -186,17 +198,29 @@ class _HomeState extends State<Home> {
                   return CircularProgressIndicator();
                 }
                 if (snapshot.data!.docs.isEmpty) {
-                  return Center(
-                    child: Container(
-                      child: Text(
-                        "No tasks added yet",
-                        style: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white),
-                      ),
-                    ),
-                  );
+                  return searchTitle.length == 0
+                      ? Center(
+                          child: Container(
+                            child: Text(
+                              "no tasks added yet",
+                              style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white),
+                            ),
+                          ),
+                        )
+                      : Center(
+                          child: Container(
+                            child: Text(
+                              "No matches found",
+                              style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white),
+                            ),
+                          ),
+                        );
                 }
 
                 return ListView(
