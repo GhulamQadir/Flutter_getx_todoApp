@@ -100,15 +100,15 @@ await    addTaskController.addTask(addTaskController.titleController.text, addTa
                     },
                     decoration: InputDecoration(
                       prefixIcon:
-                          Icon(Icons.title_outlined, color: Colors.grey),
+                          Icon(Icons.title_outlined, color: Color(0xff092f82)),
                       hintText: "Enter your task title",
                       focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                        color: Colors.purple,
+                        color: Color(0xff092f82),
                         width: 2,
                       )),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey, width: 2),
+                        borderSide: BorderSide(color: Color(0xff092f82), width: 1 ),
                       ),
                     ),
                   ),
@@ -143,17 +143,17 @@ await    addTaskController.addTask(addTaskController.titleController.text, addTa
                         hintText: "Pick Date",
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                          color: Colors.purple,
+                          color: Color(0xff092f82),
                           width: 2,
                         )),
                         enabledBorder: OutlineInputBorder(
                           borderSide:
-                              BorderSide(color: Colors.grey, width: 1),
+                              BorderSide(color: Color(0xff092f82), width: 1),
                         ),
                         suffixIcon: IconButton(
                           icon: Icon(
                             Icons.calendar_today,
-                            color: Colors.grey,
+                            color: Color(0xff092f82),
                           ),
                           onPressed: pickDate,
                         ))),
@@ -161,23 +161,25 @@ await    addTaskController.addTask(addTaskController.titleController.text, addTa
               SizedBox(
                 height: 30,
               ),
-              TextButton(
-                onPressed: add,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 35, right: 35),
-                  child: Text(
-                    "Add note",
-                    style: TextStyle(fontSize: 18, color: Colors.white),
-                  ),
-                ),
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.purple[500]!),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5)),
-                    )),
-              ),
+              Container(
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  child: TextButton(
+                      onPressed: add,
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Text(
+                          "Add task",
+                          style: TextStyle(fontSize: 18, color: Colors.white),
+                        ),
+                      ),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Color(0xff092f82)),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                          )))),
               SizedBox(
                 height: 15,
               ),

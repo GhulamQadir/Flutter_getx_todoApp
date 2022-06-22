@@ -112,13 +112,9 @@ class _HomeState extends State<Home> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 6),
-            child: FloatingActionButton.extended(
+            child: FloatingActionButton(
               onPressed: addTask,
-              label: Text(
-                "Add",
-                style: TextStyle(color: Color(0xff092f82)),
-              ),
-              icon: Icon(
+              child: Icon(
                 Icons.add,
                 color: Color(0xff092f82),
               ),
@@ -134,28 +130,6 @@ class _HomeState extends State<Home> {
       backgroundColor: Colors.lightBlue[600],
       body: Column(
         children: [
-          // SizedBox(
-          //   height: MediaQuery.of(context).size.height * 0.07,
-          //   width: MediaQuery.of(context).size.width * 0.7,
-          //   child: TextFormField(
-          //     onChanged: (val) {
-          //       setState(() {
-          //         searchTitle = val;
-          //       });
-          //     },
-          //     controller: searchController,
-          //     keyboardType: TextInputType.emailAddress,
-          //     decoration: InputDecoration(
-          //       labelText: "Search Task",
-          //       suffixIcon: Icon(
-          //         Icons.email,
-          //         color: Color(0xff092f82),
-          //       ),
-          //       border: InputBorder.none,
-          //     ),
-          //   ),
-          // ),
-
           FutureBuilder(
               future: homeController.currentUserProfile(),
               builder: (context, snapshot) {
@@ -175,7 +149,7 @@ class _HomeState extends State<Home> {
               }),
           Flexible(
             child: StreamBuilder<QuerySnapshot>(
-              stream: (searchTitle == null || searchTitle.trim() == '')
+              stream: (searchTitle == "" || searchTitle.trim() == '')
                   ? cartStream
                   : db
                       .collection("users")
@@ -202,7 +176,7 @@ class _HomeState extends State<Home> {
                       ? Center(
                           child: Container(
                             child: Text(
-                              "no tasks added yet",
+                              "No tasks added yet",
                               style: TextStyle(
                                   fontSize: 25,
                                   fontWeight: FontWeight.w500,
@@ -339,9 +313,6 @@ class _HomeState extends State<Home> {
               },
             ),
           ),
-          // ElevatedButton(
-          //     onPressed: homeController.deleteAllTodos,
-          //     child: Text("Delete all"))
         ],
       ),
     );
