@@ -44,6 +44,9 @@ class _HomeState extends State<Home> {
         });
   }
 
+  DateTime dateToday =
+      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+
   @override
   void initState() {
     cartStream = db
@@ -147,6 +150,7 @@ class _HomeState extends State<Home> {
                       ),
                     ));
               }),
+          Text('$dateToday'),
           Flexible(
             child: StreamBuilder<QuerySnapshot>(
               stream: (searchTitle == "" || searchTitle.trim() == '')
