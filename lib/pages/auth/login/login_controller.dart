@@ -3,7 +3,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_getx_todo/pages/auth/signup/sign_up.dart';
 import 'package:flutter_getx_todo/pages/home/home.dart';
 import 'package:get/get.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -13,22 +12,25 @@ class LoginController extends GetxController {
   FirebaseFirestore db = FirebaseFirestore.instance;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  // bool loading = false.obs;
+  RxBool loading = false.obs;
 
   login(String email, String password) async {
     try {
+      loading.value = true;
       FirebaseAuth auth = FirebaseAuth.instance;
 
       final UserCredential user = await auth.signInWithEmailAndPassword(
           email: email, password: password);
       emailController.clear();
       passwordController.clear();
+      // loading.value = false;
       Get.off(Home());
 
       EasyLoading.showSuccess('Successful');
     } on FirebaseAuthException catch (e) {
       EasyLoading.showError(e.message.toString());
     } catch (e) {
+      loading.value = false;
       EasyLoading.showError(e.toString());
     }
   }
@@ -82,7 +84,4 @@ class LoginController extends GetxController {
   }
 }
 
-
- class LoadingVariable extends GetxController{
-    
-  }
+class LoadingVariable extends GetxController {}

@@ -150,7 +150,6 @@ class _HomeState extends State<Home> {
                       ),
                     ));
               }),
-          Text('$dateToday'),
           Flexible(
             child: StreamBuilder<QuerySnapshot>(
               stream: (searchTitle == "" || searchTitle.trim() == '')
@@ -245,72 +244,77 @@ class _HomeState extends State<Home> {
                       homeController.deleteTodo(id);
                     }
 
-                    return Padding(
-                      padding:
-                          const EdgeInsets.only(top: 10, left: 10, right: 13),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Color(0xff092f82),
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10),
-                                bottomRight: Radius.circular(10),
-                                bottomLeft: Radius.circular(10))),
-                        child: ListTile(
-                          title: Text(data['title'],
-                              style: TextStyle(
-                                  fontSize: 17,
+                    return Column(
+                      children: [
+                        Text('$dateToday'),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 10, left: 10, right: 13),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Color(0xff092f82),
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10),
+                                    bottomRight: Radius.circular(10),
+                                    bottomLeft: Radius.circular(10))),
+                            child: ListTile(
+                              title: Text(data['title'],
+                                  style: TextStyle(
+                                      fontSize: 17,
+                                      color: Color(0xffe6e6e8),
+                                      decoration: data['is Checked'] == true
+                                          ? TextDecoration.lineThrough
+                                          : TextDecoration.none)),
+                              subtitle: Text(
+                                data['date'],
+                                style: TextStyle(
                                   color: Color(0xffe6e6e8),
-                                  decoration: data['is Checked'] == true
-                                      ? TextDecoration.lineThrough
-                                      : TextDecoration.none)),
-                          subtitle: Text(
-                            data['date'],
-                            style: TextStyle(
-                              color: Color(0xffe6e6e8),
-                            ),
-                          ),
-                          leading: Checkbox(
-                              value: data['is Checked'],
-                              shape: CircleBorder(),
-                              side: BorderSide(color: Colors.white),
-                              checkColor: Colors.white,
-                              activeColor: Colors.lightBlue[700],
-                              splashRadius: 40,
-                              onChanged: (value) {
-                                setState(() {
-                                  this.value = value!;
-                                });
-
-                                db
-                                    .collection("users")
-                                    .doc(firebaseUser!.uid)
-                                    .collection("myTodos")
-                                    .doc(id)
-                                    .update({"is Checked": value});
-                                print(value);
-                              }),
-                          trailing: Wrap(
-                            children: [
-                              IconButton(
-                                onPressed: checkBoxVal ? null : editTask,
-                                icon: Icon(
-                                  Icons.edit,
-                                  color: checkBoxVal
-                                      ? Colors.grey
-                                      : Color(0xffe6e6e8),
                                 ),
                               ),
-                              IconButton(
-                                  onPressed: deleteTask,
-                                  icon: Icon(
-                                    Icons.delete,
-                                    color: Color(0xffe6e6e8),
-                                  ))
-                            ],
+                              leading: Checkbox(
+                                  value: data['is Checked'],
+                                  shape: CircleBorder(),
+                                  side: BorderSide(color: Colors.white),
+                                  checkColor: Colors.white,
+                                  activeColor: Colors.lightBlue[700],
+                                  splashRadius: 40,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      this.value = value!;
+                                    });
+
+                                    db
+                                        .collection("users")
+                                        .doc(firebaseUser!.uid)
+                                        .collection("myTodos")
+                                        .doc(id)
+                                        .update({"is Checked": value});
+                                    print(value);
+                                  }),
+                              trailing: Wrap(
+                                children: [
+                                  IconButton(
+                                    onPressed: checkBoxVal ? null : editTask,
+                                    icon: Icon(
+                                      Icons.edit,
+                                      color: checkBoxVal
+                                          ? Colors.grey
+                                          : Color(0xffe6e6e8),
+                                    ),
+                                  ),
+                                  IconButton(
+                                      onPressed: deleteTask,
+                                      icon: Icon(
+                                        Icons.delete,
+                                        color: Color(0xffe6e6e8),
+                                      ))
+                                ],
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     );
                   }).toList(),
                 );

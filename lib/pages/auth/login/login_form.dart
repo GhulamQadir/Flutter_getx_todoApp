@@ -19,7 +19,8 @@ class _LoginFormState extends State<LoginForm> {
     if (!_formKey.currentState!.validate()) {
       return;
     }
-    EasyLoading.show(status: 'loading...');
+    // loginController.loading.isTrue;
+    // EasyLoading.show(status: 'loading...');
     loginController.login(loginController.emailController.text,
         loginController.passwordController.text);
   }
