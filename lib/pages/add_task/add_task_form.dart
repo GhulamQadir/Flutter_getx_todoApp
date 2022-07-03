@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_getx_todo/pages/add_task/add_task_controller.dart';
 import 'package:flutter_getx_todo/pages/add_task/loading_screen.dart';
@@ -14,15 +15,19 @@ class _AddTaskFormState extends State<AddTaskForm> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool loading = false;
+  DateTime now =  DateTime.now();
+//   DateTime convertedDateTime = DateTime.now();
+// Timestamp convertedDateTimeStamp = Timestamp.fromDate(convertedDateTime);
 
   add() async{
+    print("${now.year} ${now.month} ${now.day}");
+
     if (!_formKey.currentState!.validate()) {
       return;
     }
-await    addTaskController.addTask(addTaskController.titleController.text, addTaskController.dateController.text);
+await addTaskController.addTask(addTaskController.titleController.text, addTaskController.dateController.text);
    
     Navigator.of(context).pop();
-
   }
   
   DateTime date = DateTime(2022, 04, 18);

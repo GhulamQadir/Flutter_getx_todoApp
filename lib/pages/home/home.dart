@@ -210,6 +210,7 @@ class _HomeState extends State<Home> {
 
                     var title = data["title"];
                     var date = data["date"];
+                    var currentDate = date["currentDate"];
                     var checkBoxVal = data["is Checked"] == true;
 
                     editTask() {
@@ -246,7 +247,6 @@ class _HomeState extends State<Home> {
 
                     return Column(
                       children: [
-                        Text('$dateToday'),
                         Padding(
                           padding: const EdgeInsets.only(
                               top: 10, left: 10, right: 13),
@@ -267,7 +267,8 @@ class _HomeState extends State<Home> {
                                           ? TextDecoration.lineThrough
                                           : TextDecoration.none)),
                               subtitle: Text(
-                                data['date'],
+                                // data['date'],
+                                data["currentDate"],
                                 style: TextStyle(
                                   color: Color(0xffe6e6e8),
                                 ),

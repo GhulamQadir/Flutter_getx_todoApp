@@ -9,6 +9,8 @@ class AddTaskController extends GetxController {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
   bool checkBoxVal = false;
+  // DateTime now = new DateTime.now();
+
   addTask(String title, String date) {
     try {
       Map<String, dynamic> addTodo = {
